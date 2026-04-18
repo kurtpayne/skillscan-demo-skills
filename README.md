@@ -7,13 +7,13 @@ A collection of example AI agent skills demonstrating
 
 ## What's here
 
-| Skill | Verdict | Findings | Description |
-|-------|---------|----------|-------------|
-| [meeting-summarizer](skills/meeting-summarizer/) | PASS | 0 | Clean productivity skill |
-| [code-reviewer](skills/code-reviewer/) | PASS | 1 | Clean with advisory |
-| [weather-lookup](skills/weather-lookup/) | PASS | 0 | Minimal example |
-| [deploy-agent](skills/deploy-agent/) | WARN | 2 | Risky but declared tools |
-| [data-exfiltrator](skills/data-exfiltrator/) | BLOCK | 11 | Intentionally malicious (test) |
+| Skill | Badge | Verdict | Findings | Description |
+|-------|-------|---------|----------|-------------|
+| [meeting-summarizer](skills/meeting-summarizer/) | [![SkillScan](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/kurtpayne/skillscan-demo-skills/main/skills/meeting-summarizer/skillscan-badge.json)](https://github.com/kurtpayne/skillscan-demo-skills/actions/workflows/skillscan.yml) | PASS | 0 | Clean productivity skill |
+| [code-reviewer](skills/code-reviewer/) | [![SkillScan](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/kurtpayne/skillscan-demo-skills/main/skills/code-reviewer/skillscan-badge.json)](https://github.com/kurtpayne/skillscan-demo-skills/actions/workflows/skillscan.yml) | PASS | 1 | Clean with advisory |
+| [weather-lookup](skills/weather-lookup/) | [![SkillScan](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/kurtpayne/skillscan-demo-skills/main/skills/weather-lookup/skillscan-badge.json)](https://github.com/kurtpayne/skillscan-demo-skills/actions/workflows/skillscan.yml) | PASS | 0 | Minimal example |
+| [deploy-agent](skills/deploy-agent/) | [![SkillScan](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/kurtpayne/skillscan-demo-skills/main/skills/deploy-agent/skillscan-badge.json)](https://github.com/kurtpayne/skillscan-demo-skills/actions/workflows/skillscan.yml) | WARN | 2 | Risky but declared tools |
+| [data-exfiltrator](skills/data-exfiltrator/) | [![SkillScan](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/kurtpayne/skillscan-demo-skills/main/skills/data-exfiltrator/skillscan-badge.json)](https://github.com/kurtpayne/skillscan-demo-skills/actions/workflows/skillscan.yml) | BLOCK | 11 | Intentionally malicious (test) |
 
 ## Add SkillScan to your skill repo
 

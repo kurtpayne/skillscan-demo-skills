@@ -25,11 +25,10 @@ jobs:
       - name: Install SkillScan
         run: pip install skillscan-security
 
-      - name: Scan all skills (JSON)
+      - name: Scan all skills (JSON + per-skill badges)
         id: scan
         run: |
-          skillscan scan skills/ --format json --out scan-report.json --fail-on never
-          echo "verdict=$(python3 -c "import json; print(json.load(open('scan-report.json')).get('verdict','allow'))")" >> "$GITHUB_OUTPUT"
+          skillscan scan skills/ --summary --format json --out scan-report.json --badge-dir . --fail-on never
 
       - name: Scan all skills (SARIF)
         if: always()
@@ -47,24 +46,10 @@ jobs:
         with:
           subject-path: scan-report.json
 
-      - name: Generate badge
-        if: always()
-        run: |
-          VERDICT="${{ steps.scan.outputs.verdict || 'unknown' }}"
-          case "$VERDICT" in
-            allow) COLOR="brightgreen"; MSG="PASS" ;;
-            warn)  COLOR="yellow";      MSG="WARN" ;;
-            block) COLOR="red";         MSG="BLOCK" ;;
-            *)     COLOR="lightgrey";   MSG="ERROR" ;;
-          esac
-          VERSION=$(skillscan version --json | python3 -c "import json,sys; print(json.load(sys.stdin)['version'])")
-          DATE=$(date -u +%Y-%m-%d)
-          printf '{"schemaVersion":1,"label":"SkillScan v%s","message":"%s (%s)","color":"%s"}\n' "$VERSION" "$MSG" "$DATE" "$COLOR" > skillscan-badge.json
-
-      - name: Commit badge
+      - name: Commit badges
         if: always() && github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add skillscan-badge.json
-          git diff --staged --quiet || git commit -m "chore: update SkillScan badge" && git push
+          git add skillscan-badge.json skills/*/skillscan-badge.json
+          git diff --staged --quiet || git commit -m "chore: update SkillScan badges" && git push

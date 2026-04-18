@@ -128,6 +128,60 @@ gh attestation verify reports/scan-report.json --owner YOUR_ORG
 | ![WARN](https://img.shields.io/badge/SkillScan-WARN-yellow) | Skills have warnings but no blocking findings |
 | ![BLOCK](https://img.shields.io/badge/SkillScan-BLOCK-red) | One or more skills have blocking security findings |
 
+## Multi-skill repos
+
+If your repository contains multiple skills (each in its own subdirectory
+with a `SKILL.md`), you can generate a separate badge for each skill plus
+a repo-level summary badge.
+
+### Option A: Use `--badge-dir` (recommended)
+
+The `--badge-dir` flag with `--summary` writes per-skill badges into each
+skill directory and a summary badge to the specified base directory:
+
+```yaml
+      - name: Scan all skills
+        run: |
+          skillscan scan skills/ --summary --badge-dir . --fail-on never
+
+      - name: Commit badges
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add skillscan-badge.json skills/*/skillscan-badge.json
+          git diff --staged --quiet || git commit -m "chore: update SkillScan badges" && git push
+```
+
+This produces:
+- `skillscan-badge.json` (summary: e.g., `"3/5 PASS"`)
+- `skills/my-skill/skillscan-badge.json` (per-skill: `"PASS"`, `"WARN"`, or `"BLOCK"`)
+
+### Option B: Loop per skill with `--badge-out`
+
+Alternatively, scan each skill individually:
+
+```bash
+for skill_dir in skills/*/; do
+  name=$(basename "$skill_dir")
+  skillscan scan "$skill_dir" --badge-out "$skill_dir/skillscan-badge.json" --fail-on never
+done
+```
+
+### Per-skill README badges
+
+Add a badge to each skill's `README.md`:
+
+```markdown
+[![SkillScan](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/YOUR/REPO/main/skills/my-skill/skillscan-badge.json)](https://github.com/YOUR/REPO/actions/workflows/skillscan.yml)
+```
+
+And a summary badge in the repo root `README.md`:
+
+```markdown
+[![SkillScan](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/YOUR/REPO/main/skillscan-badge.json)](https://github.com/YOUR/REPO/actions/workflows/skillscan.yml)
+```
+
 ## Troubleshooting
 
 **Badge shows "pending":** The CI workflow hasn't run yet. Push a change
