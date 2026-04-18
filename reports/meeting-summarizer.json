@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "skillscan_version": "0.8.0",
+    "rules_version": "2026.04.17.1",
+    "policy_profile": "strict",
+    "policy_source": "builtin:strict",
+    "scanned_at": "2026-04-18T05:08:20.478997+00:00"
+  },
+  "metadata": {
+    "scanner_version": "0.8.0",
+    "scanned_at": "2026-04-18T05:08:20.278462+00:00",
+    "target": "skills/meeting-summarizer/",
+    "target_type": "directory",
+    "ecosystem_hints": [
+      "openclaw_clawhub"
+    ],
+    "rulepack_version": "2026.02.09.1+2026.04.17.1+2026.03.21.1",
+    "policy_profile": "strict",
+    "policy_source": "builtin:strict",
+    "intel_sources": [
+      "builtin:ioc_db",
+      "builtin:vuln_db",
+      "user:managed:urlhaus_urls",
+      "user:managed:urlhaus_hosts",
+      "user:managed:feodotracker_ips",
+      "user:managed:spamhaus_drop",
+      "user:managed:hagezi_doh_domains",
+      "user:managed:hagezi_tif_domains",
+      "user:managed:hagezi_tif_ips",
+      "user:managed:phishing_army_domains",
+      "user:managed:kadhosts_domains"
+    ]
+  },
+  "verdict": "allow",
+  "score": 0,
+  "findings": [],
+  "iocs": [],
+  "dependency_findings": [],
+  "capabilities": [],
+  "triage_metadata": {
+    "semantic_injection_score": 0.0,
+    "social_engineering_score": 0.0,
+    "ml_injection_probability": null,
+    "has_sub_threshold_signal": false
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "skillscan_version": "0.8.0",
+    "rules_version": "2026.04.17.1",
+    "policy_profile": "strict",
+    "policy_source": "builtin:strict",
+    "scanned_at": "2026-04-18T05:08:30.503103+00:00"
+  },
+  "metadata": {
+    "scanner_version": "0.8.0",
+    "scanned_at": "2026-04-18T05:08:30.297205+00:00",
+    "target": "skills/deploy-agent/",
+    "target_type": "directory",
+    "ecosystem_hints": [
+      "openclaw_clawhub"
+    ],
+    "rulepack_version": "2026.02.09.1+2026.04.17.1+2026.03.21.1",
+    "policy_profile": "strict",
+    "policy_source": "builtin:strict",
+    "intel_sources": [
+      "builtin:ioc_db",
+      "builtin:vuln_db",
+      "user:managed:urlhaus_urls",
+      "user:managed:urlhaus_hosts",
+      "user:managed:feodotracker_ips",
+      "user:managed:spamhaus_drop",
+      "user:managed:hagezi_doh_domains",
+      "user:managed:hagezi_tif_domains",
+      "user:managed:hagezi_tif_ips",
+      "user:managed:phishing_army_domains",
+      "user:managed:kadhosts_domains"
+    ]
+  },
+  "verdict": "warn",
+  "score": 65,
+  "findings": [
+    {
+      "rule_id": "SE-SEM-001",
+      "category": "social_engineering",
+      "severity": "high",
+      "confidence": 0.92,
+      "title": "Local semantic social-engineering credential-harvest pattern",
+      "evidence_path": "skills/deploy-agent/SKILL.md",
+      "line": null,
+      "snippet": "3. Pushes artifacts to the configured cloud provider via HTTP API calls | -H \"Authorization: Bearer $DEPLOY_TOKEN\" \\",
+      "chain_actions": [],
+      "attack_hint": null,
+      "section_context": "",
+      "ml_severity": null,
+      "sub_classes": [],
+      "affected_lines": []
+    },
+    {
+      "rule_id": "PINJ-GRAPH-001",
+      "category": "prompt_injection",
+      "severity": "medium",
+      "confidence": 0.6,
+      "title": "Skill may load remote content via fetch tool",
+      "evidence_path": "skills/deploy-agent/SKILL.md",
+      "line": null,
+      "snippet": "fetch/curl/wget with remote URL detected",
+      "chain_actions": [],
+      "attack_hint": null,
+      "section_context": "",
+      "ml_severity": null,
+      "sub_classes": [],
+      "affected_lines": []
+    }
+  ],
+  "iocs": [
+    {
+      "value": "https://deploy.example.com/api/v1/releases",
+      "kind": "url",
+      "source_path": "skills/deploy-agent/SKILL.md",
+      "listed": false
+    },
+    {
+      "value": "https://app.example.com/health",
+      "kind": "url",
+      "source_path": "skills/deploy-agent/SKILL.md",
+      "listed": false
+    },
+    {
+      "value": "deploy.example.com",
+      "kind": "domain",
+      "source_path": "skills/deploy-agent/SKILL.md",
+      "listed": false
+    },
+    {
+      "value": "app.example.com",
+      "kind": "domain",
+      "source_path": "skills/deploy-agent/SKILL.md",
+      "listed": false
+    }
+  ],
+  "dependency_findings": [],
+  "capabilities": [
+    {
+      "name": "shell_execution",
+      "evidence_path": "skills/deploy-agent/SKILL.md",
+      "detail": "Pattern match"
+    },
+    {
+      "name": "network_access",
+      "evidence_path": "skills/deploy-agent/SKILL.md",
+      "detail": "Pattern match"
+    }
+  ],
+  "triage_metadata": {
+    "semantic_injection_score": 0.4,
+    "social_engineering_score": 0.92,
+    "ml_injection_probability": null,
+    "has_sub_threshold_signal": true
+  }
+}

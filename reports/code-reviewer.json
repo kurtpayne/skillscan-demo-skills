@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "skillscan_version": "0.8.0",
+    "rules_version": "2026.04.17.1",
+    "policy_profile": "strict",
+    "policy_source": "builtin:strict",
+    "scanned_at": "2026-04-18T05:08:26.621228+00:00"
+  },
+  "metadata": {
+    "scanner_version": "0.8.0",
+    "scanned_at": "2026-04-18T05:08:26.417457+00:00",
+    "target": "skills/code-reviewer/",
+    "target_type": "directory",
+    "ecosystem_hints": [
+      "openclaw_clawhub"
+    ],
+    "rulepack_version": "2026.02.09.1+2026.04.17.1+2026.03.21.1",
+    "policy_profile": "strict",
+    "policy_source": "builtin:strict",
+    "intel_sources": [
+      "builtin:ioc_db",
+      "builtin:vuln_db",
+      "user:managed:urlhaus_urls",
+      "user:managed:urlhaus_hosts",
+      "user:managed:feodotracker_ips",
+      "user:managed:spamhaus_drop",
+      "user:managed:hagezi_doh_domains",
+      "user:managed:hagezi_tif_domains",
+      "user:managed:hagezi_tif_ips",
+      "user:managed:phishing_army_domains",
+      "user:managed:kadhosts_domains"
+    ]
+  },
+  "verdict": "allow",
+  "score": 5,
+  "findings": [
+    {
+      "rule_id": "AV-ADVISORY",
+      "category": "artifact_malware",
+      "severity": "low",
+      "confidence": 1.0,
+      "title": "Bundled script files detected \u2014 ClamAV scan not performed",
+      "evidence_path": "skills/code-reviewer",
+      "line": null,
+      "snippet": "main.py",
+      "chain_actions": [],
+      "attack_hint": null,
+      "section_context": "",
+      "ml_severity": null,
+      "sub_classes": [],
+      "affected_lines": []
+    }
+  ],
+  "iocs": [],
+  "dependency_findings": [],
+  "capabilities": [
+    {
+      "name": "filesystem_write",
+      "evidence_path": "skills/code-reviewer/main.py",
+      "detail": "Pattern match"
+    }
+  ],
+  "triage_metadata": {
+    "semantic_injection_score": 0.1,
+    "social_engineering_score": 0.0,
+    "ml_injection_probability": null,
+    "has_sub_threshold_signal": false
+  }
+}
