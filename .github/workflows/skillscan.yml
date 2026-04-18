@@ -25,19 +25,24 @@ jobs:
       - name: Install SkillScan
         run: pip install skillscan-security
 
-      - name: Scan all skills
+      - name: Scan all skills (JSON)
+        id: scan
         run: |
-          skillscan scan skills/ --summary --format json --out scan-report.json || true
-          skillscan scan skills/ --format sarif --out results.sarif || true
+          skillscan scan skills/ --format json --out scan-report.json --fail-on never
+          echo "verdict=$(python3 -c "import json; print(json.load(open('scan-report.json')).get('verdict','allow'))")" >> "$GITHUB_OUTPUT"
+
+      - name: Scan all skills (SARIF)
+        if: always()
+        run: skillscan scan skills/ --format sarif --out results.sarif --fail-on never
 
       - name: Upload SARIF
         uses: github/codeql-action/upload-sarif@v4
-        if: always()
+        if: always() && hashFiles('results.sarif') != ''
         with:
           sarif_file: results.sarif
 
       - name: Attest report
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && hashFiles('scan-report.json') != ''
         uses: actions/attest-build-provenance@v2
         with:
           subject-path: scan-report.json
@@ -45,7 +50,7 @@ jobs:
       - name: Generate badge
         if: always()
         run: |
-          VERDICT=$(python3 -c "import json; print(json.load(open('scan-report.json')).get('verdict','unknown'))" 2>/dev/null || echo "unknown")
+          VERDICT="${{ steps.scan.outputs.verdict || 'unknown' }}"
           case "$VERDICT" in
             allow) COLOR="brightgreen"; MSG="PASS" ;;
             warn)  COLOR="yellow";      MSG="WARN" ;;
